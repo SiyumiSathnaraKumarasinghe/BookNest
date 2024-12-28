@@ -5,11 +5,17 @@ D:\Projects\BookNest\backend\BookManagementAPI\bin\Debug\net7.0\BookManagementAP
 D:\Projects\BookNest\backend\BookManagementAPI\bin\Debug\net7.0\BookManagementAPI.runtimeconfig.json
 D:\Projects\BookNest\backend\BookManagementAPI\bin\Debug\net7.0\BookManagementAPI.dll
 D:\Projects\BookNest\backend\BookManagementAPI\bin\Debug\net7.0\BookManagementAPI.pdb
+D:\Projects\BookNest\backend\BookManagementAPI\bin\Debug\net7.0\DnsClient.dll
 D:\Projects\BookNest\backend\BookManagementAPI\bin\Debug\net7.0\Microsoft.AspNetCore.OpenApi.dll
 D:\Projects\BookNest\backend\BookManagementAPI\bin\Debug\net7.0\Microsoft.OpenApi.dll
+D:\Projects\BookNest\backend\BookManagementAPI\bin\Debug\net7.0\MongoDB.Bson.dll
+D:\Projects\BookNest\backend\BookManagementAPI\bin\Debug\net7.0\MongoDB.Driver.dll
+D:\Projects\BookNest\backend\BookManagementAPI\bin\Debug\net7.0\SharpCompress.dll
+D:\Projects\BookNest\backend\BookManagementAPI\bin\Debug\net7.0\Snappier.dll
 D:\Projects\BookNest\backend\BookManagementAPI\bin\Debug\net7.0\Swashbuckle.AspNetCore.Swagger.dll
 D:\Projects\BookNest\backend\BookManagementAPI\bin\Debug\net7.0\Swashbuckle.AspNetCore.SwaggerGen.dll
 D:\Projects\BookNest\backend\BookManagementAPI\bin\Debug\net7.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+D:\Projects\BookNest\backend\BookManagementAPI\bin\Debug\net7.0\ZstdSharp.dll
 D:\Projects\BookNest\backend\BookManagementAPI\obj\Debug\net7.0\BookManagementAPI.csproj.AssemblyReference.cache
 D:\Projects\BookNest\backend\BookManagementAPI\obj\Debug\net7.0\BookManagementAPI.GeneratedMSBuildEditorConfig.editorconfig
 D:\Projects\BookNest\backend\BookManagementAPI\obj\Debug\net7.0\BookManagementAPI.AssemblyInfoInputs.cache

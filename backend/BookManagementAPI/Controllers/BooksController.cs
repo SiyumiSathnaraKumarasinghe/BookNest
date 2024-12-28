@@ -1,54 +1,115 @@
 using Microsoft.AspNetCore.Mvc;
-using BookApi.Models;
+using MongoDB.Driver;
+using BookManagementAPI.Models;  // Ensure this matches the namespace of your Book model
+using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace BookApi.Controllers
+namespace BookManagementAPI.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
     public class BooksController : ControllerBase
     {
-        private static List<Book> books = new List<Book>
-        {
-            new Book { Id = 1, Title = "Sample Book", Author = "John Doe", ISBN = "123456789", PublicationDate = DateTime.Now }
-        };
+        private readonly IMongoCollection<Book> _bookCollection;
 
+        public BooksController(IMongoClient mongoClient)
+        {
+            // Get the database from MongoDB using the connection string from appsettings.json
+            var database = mongoClient.GetDatabase("bookstoreDB"); // Replace "bookstoreDB" with your actual DB name
+            _bookCollection = database.GetCollection<Book>("books"); // Replace "books" with your collection name
+        }
+
+        // GET: api/books
         [HttpGet]
-        public IActionResult GetBooks()
+        public async Task<IActionResult> GetBooks()
         {
-            return Ok(books);
+            try
+            {
+                // Fetch books from MongoDB collection
+                var books = await _bookCollection.Find(book => true).ToListAsync();
+                return Ok(books); // Return the list of books in JSON format
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
         }
 
+        // POST: api/books
         [HttpPost]
-        public IActionResult AddBook([FromBody] Book book)
+        public async Task<IActionResult> AddBook([FromBody] Book book)
         {
-            book.Id = books.Count + 1;
-            books.Add(book);
-            return CreatedAtAction(nameof(GetBooks), new { id = book.Id }, book);
+            if (book == null)
+                return BadRequest("Book object is null.");
+
+            if (string.IsNullOrEmpty(book.Title) || string.IsNullOrEmpty(book.Author))
+                return BadRequest("Book must have a title and an author.");
+
+            try
+            {
+                // Create the book and insert it into MongoDB
+                await _bookCollection.InsertOneAsync(book);
+                return CreatedAtAction(nameof(GetBooks), new { id = book.Id }, book);  // Return the created book
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
         }
 
+        // PUT: api/books/{id}
         [HttpPut("{id}")]
-        public IActionResult UpdateBook(int id, [FromBody] Book updatedBook)
+        public async Task<IActionResult> UpdateBook(string id, [FromBody] Book updatedBook)
         {
-            var book = books.FirstOrDefault(b => b.Id == id);
-            if (book == null) return NotFound();
+            if (updatedBook == null)
+                return BadRequest("Updated book object is null.");
 
-            book.Title = updatedBook.Title;
-            book.Author = updatedBook.Author;
-            book.ISBN = updatedBook.ISBN;
-            book.PublicationDate = updatedBook.PublicationDate;
-            return NoContent();
+            if (string.IsNullOrEmpty(updatedBook.Title) || string.IsNullOrEmpty(updatedBook.Author))
+                return BadRequest("Updated book must have a title and an author.");
+
+            var book = await _bookCollection.Find(b => b.Id == id).FirstOrDefaultAsync();
+            if (book == null)
+                return NotFound($"Book with ID {id} not found.");
+
+            try
+            {
+                // Update book properties
+                var updateDefinition = Builders<Book>.Update
+                    .Set(b => b.Title, updatedBook.Title)
+                    .Set(b => b.Author, updatedBook.Author)
+                    .Set(b => b.ISBN, updatedBook.ISBN)
+                    .Set(b => b.PublicationDate, updatedBook.PublicationDate);
+
+                await _bookCollection.UpdateOneAsync(b => b.Id == id, updateDefinition);
+
+                return NoContent(); // Return 204 No Content response on success
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
         }
 
+        // DELETE: api/books/{id}
         [HttpDelete("{id}")]
-        public IActionResult DeleteBook(int id)
+        public async Task<IActionResult> DeleteBook(string id)
         {
-            var book = books.FirstOrDefault(b => b.Id == id);
-            if (book == null) return NotFound();
+            var book = await _bookCollection.Find(b => b.Id == id).FirstOrDefaultAsync();
+            if (book == null)
+                return NotFound($"Book with ID {id} not found.");
 
-            books.Remove(book);
-            return NoContent();
+            try
+            {
+                // Delete the book from the collection
+                await _bookCollection.DeleteOneAsync(b => b.Id == id);
+
+                return NoContent(); // Return 204 No Content response on success
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
         }
     }
 }

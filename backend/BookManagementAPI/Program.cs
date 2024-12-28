@@ -1,25 +1,36 @@
+using MongoDB.Driver;
+using BookManagementAPI.Controllers;
+using BookManagementAPI.Models;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+// Register MongoDB client service
+var connectionString = builder.Configuration.GetConnectionString("MongoDb");
+builder.Services.AddSingleton<IMongoClient>(serviceProvider =>
+{
+    return new MongoClient(connectionString);
+});
 
+// Register MongoDB service (if you have a service to handle MongoDB operations)
+builder.Services.AddScoped<BooksController>(); // This registers your BooksController
+
+// Register controllers
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+
+// Add Swagger for API documentation (optional)
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+// Configure middleware
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
-
 app.UseAuthorization();
-
 app.MapControllers();
 
 app.Run();

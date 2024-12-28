@@ -3,26 +3,25 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'  // This makes the service available globally
+  providedIn: 'root'
 })
 export class BookService {
-    private apiUrl = 'http://localhost:5282/api/books';
+  private apiUrl = 'http://localhost:5282/api/books'; // Your backend API URL
 
   constructor(private http: HttpClient) { }
 
-  getBooks(): Observable<any> {
-    return this.http.get(this.apiUrl);
+  // Get all books from the backend
+  getBooks(): Observable<any[]> {
+    return this.http.get<any[]>(this.apiUrl);
   }
 
+  // Add a new book to the backend
   addBook(book: any): Observable<any> {
-    return this.http.post(this.apiUrl, book);
+    return this.http.post<any>(this.apiUrl, book);
   }
 
-  updateBook(id: number, book: any): Observable<any> {
-    return this.http.put(`${this.apiUrl}/${id}`, book);
-  }
-
-  deleteBook(id: number): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/${id}`);
+  // Delete a book from the backend by ID
+  deleteBook(id: string): Observable<any> {
+    return this.http.delete<any>(`${this.apiUrl}/${id}`);
   }
 }

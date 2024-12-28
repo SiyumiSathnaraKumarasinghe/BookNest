@@ -1,13 +1,24 @@
-using System;
+using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
 
-namespace BookApi.Models
+namespace BookManagementAPI.Models
 {
     public class Book
     {
-        public int? Id { get; set; }
+        [BsonId]
+        [BsonRepresentation(BsonType.ObjectId)]
+        public string? Id { get; set; }
+
+        [BsonElement("title")]
         public string? Title { get; set; }
+
+        [BsonElement("author")]
         public string? Author { get; set; }
+
+        [BsonElement("isbn")]
         public string? ISBN { get; set; }
-        public DateTime PublicationDate { get; set; }
+
+        [BsonElement("publicationDate")]
+        public string? PublicationDate { get; set; }
     }
 }
