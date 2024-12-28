@@ -1,16 +1,13 @@
 <div class="container">
   <h2>Book Management</h2>
-
-  <!-- Form to add new book -->
   <form (ngSubmit)="addBook()">
     <input type="text" [(ngModel)]="newBook.title" name="title" placeholder="Title" required>
     <input type="text" [(ngModel)]="newBook.author" name="author" placeholder="Author" required>
     <input type="text" [(ngModel)]="newBook.isbn" name="isbn" placeholder="ISBN" required>
     <input type="date" [(ngModel)]="newBook.publicationDate" name="publicationDate" required>
-    <button type="submit">Add Book</button>
+    <button type="submit">{{ newBook.id ? 'Update Book' : 'Add Book' }}</button>
   </form>
 
-  <!-- Table to display list of books -->
   <table>
     <thead>
       <tr>
@@ -28,6 +25,7 @@
         <td>{{ book.isbn }}</td>
         <td>{{ book.publicationDate }}</td>
         <td>
+          <button (click)="editBook(book)">Edit</button>
           <button (click)="deleteBook(book.id)">Delete</button>
         </td>
       </tr>

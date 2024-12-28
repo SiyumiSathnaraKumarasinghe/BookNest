@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Driver;
 using BookManagementAPI.Models;  // Ensure this matches the namespace of your Book model
+using BookManagementAPI.Services;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Linq;
@@ -81,9 +82,16 @@ namespace BookManagementAPI.Controllers
                     .Set(b => b.ISBN, updatedBook.ISBN)
                     .Set(b => b.PublicationDate, updatedBook.PublicationDate);
 
-                await _bookCollection.UpdateOneAsync(b => b.Id == id, updateDefinition);
+                var result = await _bookCollection.UpdateOneAsync(b => b.Id == id, updateDefinition);
 
-                return NoContent(); // Return 204 No Content response on success
+                if (result.ModifiedCount > 0)
+                {
+                    return NoContent(); // Return 204 No Content response on success
+                }
+                else
+                {
+                    return BadRequest("Book update failed.");
+                }
             }
             catch (Exception ex)
             {

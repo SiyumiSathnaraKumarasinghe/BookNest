@@ -24,4 +24,9 @@ export class BookService {
   deleteBook(id: string): Observable<any> {
     return this.http.delete<any>(`${this.apiUrl}/${id}`);
   }
+
+  // Update an existing book
+  updateBook(book: any): Observable<any> {
+    return this.http.put<any>(`${this.apiUrl}/${book.id}`, book); // The endpoint expects book ID in the URL
+  }
 }
