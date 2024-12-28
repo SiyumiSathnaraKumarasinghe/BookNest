@@ -22,14 +22,19 @@ export class BooksComponent implements OnInit {
       this.books = data; // Assign fetched data to the books array
     });
   }
-
-  // Method to add a new book to the backend and reset the form
-  addBook(): void {
-    this.bookService.addBook(this.newBook).subscribe(() => {
-      this.getBooks(); // Refresh the list of books after adding a new one
-      this.newBook = { title: '', author: '', isbn: '', publicationDate: '' }; // Reset form
-    });
+// Method to add a new book to the backend and reset the form
+addBook(): void {
+  // Convert the publicationDate to ISO 8601 format (yyyy-MM-dd)
+  if (this.newBook.publicationDate) {
+    this.newBook.publicationDate = new Date(this.newBook.publicationDate).toISOString().split('T')[0];
   }
+
+  this.bookService.addBook(this.newBook).subscribe(() => {
+    this.getBooks(); // Refresh the list of books after adding a new one
+    this.newBook = { title: '', author: '', isbn: '', publicationDate: '' }; // Reset form
+  });
+}
+
 
   // Method to delete a book by ID
   deleteBook(id: string): void {
