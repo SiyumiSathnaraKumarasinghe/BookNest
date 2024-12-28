@@ -1,34 +1,67 @@
-<div class="container">
-  <h2>Book Management</h2>
-  <form (ngSubmit)="addBook()">
-    <input type="text" [(ngModel)]="newBook.title" name="title" placeholder="Title" required>
-    <input type="text" [(ngModel)]="newBook.author" name="author" placeholder="Author" required>
-    <input type="text" [(ngModel)]="newBook.isbn" name="isbn" placeholder="ISBN" required>
-    <input type="date" [(ngModel)]="newBook.publicationDate" name="publicationDate" required>
-    <button type="submit">{{ newBook.id ? 'Update Book' : 'Add Book' }}</button>
-  </form>
+<!DOCTYPE html>
+<html lang="en">
 
-  <table>
-    <thead>
-      <tr>
-        <th>Title</th>
-        <th>Author</th>
-        <th>ISBN</th>
-        <th>Publication Date</th>
-        <th>Actions</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let book of books">
-        <td>{{ book.title }}</td>
-        <td>{{ book.author }}</td>
-        <td>{{ book.isbn }}</td>
-        <td>{{ book.publicationDate }}</td>
-        <td>
-          <button (click)="editBook(book)">Edit</button>
-          <button (click)="deleteBook(book.id)">Delete</button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-</div>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Book Nest</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+
+<body>
+  <div class="top-border">
+    <h1>Book Nest</h1>
+  </div>
+  
+
+  <br><br>
+
+  <div class="container">
+    <!-- Form and Image Container -->
+    <div class="form-wrapper">
+      <!-- Image container -->
+      <div class="image-container">
+        <img src="/assets/book.jpg" alt="Book Image" />
+      </div>
+
+      <!-- Form container with input fields -->
+      <div class="form-container">
+        <form (ngSubmit)="addBook()">
+          <input type="text" [(ngModel)]="newBook.title" name="title" placeholder="Title" required>
+          <input type="text" [(ngModel)]="newBook.author" name="author" placeholder="Author" required>
+          <input type="text" [(ngModel)]="newBook.isbn" name="isbn" placeholder="ISBN" required>
+          <input type="date" [(ngModel)]="newBook.publicationDate" name="publicationDate" required>
+          <button type="submit">{{ newBook.id ? 'Update Book' : 'Add Book' }}</button>
+        </form>
+      </div>
+    </div>
+
+    <br><br>
+    <!-- Book table -->
+    <table>
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Author</th>
+          <th>ISBN</th>
+          <th>Publication Date</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let book of books">
+          <td>{{ book.title }}</td>
+          <td>{{ book.author }}</td>
+          <td>{{ book.isbn }}</td>
+          <td>{{ book.publicationDate }}</td>
+          <td>
+            <button (click)="editBook(book)" class="edit-btn">Edit</button>
+            <button (click)="deleteBook(book.id)" class="delete-btn">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</body>
+
+</html>
