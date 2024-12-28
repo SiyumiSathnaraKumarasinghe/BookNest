@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'  // This makes the service available globally
 })
 export class BookService {
-  private apiUrl = 'http://localhost:5000/api/books'; // API endpoint for your backend
+    private apiUrl = 'http://localhost:5282/api/books';
 
   constructor(private http: HttpClient) { }
 

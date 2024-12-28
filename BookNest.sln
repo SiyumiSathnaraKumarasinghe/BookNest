@@ -1,0 +1,30 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.002.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "backend", "backend", "{992CA2FC-8CC2-4FDE-9046-E0B17CE8CDFF}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookManagementAPI", "backend\BookManagementAPI\BookManagementAPI.csproj", "{5C2ECFF5-0659-4C70-AD9E-9BAFC923EA0C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5C2ECFF5-0659-4C70-AD9E-9BAFC923EA0C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5C2ECFF5-0659-4C70-AD9E-9BAFC923EA0C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5C2ECFF5-0659-4C70-AD9E-9BAFC923EA0C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5C2ECFF5-0659-4C70-AD9E-9BAFC923EA0C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{5C2ECFF5-0659-4C70-AD9E-9BAFC923EA0C} = {992CA2FC-8CC2-4FDE-9046-E0B17CE8CDFF}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {DC549880-AEC5-418C-A0F9-D984B4D8C3E3}
+	EndGlobalSection
+EndGlobal
