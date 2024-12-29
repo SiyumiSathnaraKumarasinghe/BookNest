@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Driver;
-using BookManagementAPI.Models;  // Ensure this matches the namespace of your Book model
+using BookManagementAPI.Models; 
 using BookManagementAPI.Services;
 using System.Threading.Tasks;
 using System.Collections.Generic;
@@ -16,9 +16,9 @@ namespace BookManagementAPI.Controllers
 
         public BooksController(IMongoClient mongoClient)
         {
-            // Get the database from MongoDB using the connection string from appsettings.json
-            var database = mongoClient.GetDatabase("bookstoreDB"); // Replace "bookstoreDB" with your actual DB name
-            _bookCollection = database.GetCollection<Book>("books"); // Replace "books" with your collection name
+            
+            var database = mongoClient.GetDatabase("bookstoreDB"); 
+            _bookCollection = database.GetCollection<Book>("books"); 
         }
 
         // GET: api/books
@@ -29,7 +29,7 @@ namespace BookManagementAPI.Controllers
             {
                 // Fetch books from MongoDB collection
                 var books = await _bookCollection.Find(book => true).ToListAsync();
-                return Ok(books); // Return the list of books in JSON format
+                return Ok(books); 
             }
             catch (Exception ex)
             {
@@ -51,7 +51,7 @@ namespace BookManagementAPI.Controllers
             {
                 // Create the book and insert it into MongoDB
                 await _bookCollection.InsertOneAsync(book);
-                return CreatedAtAction(nameof(GetBooks), new { id = book.Id }, book);  // Return the created book
+                return CreatedAtAction(nameof(GetBooks), new { id = book.Id }, book); 
             }
             catch (Exception ex)
             {
@@ -86,7 +86,7 @@ namespace BookManagementAPI.Controllers
 
                 if (result.ModifiedCount > 0)
                 {
-                    return NoContent(); // Return 204 No Content response on success
+                    return NoContent(); 
                 }
                 else
                 {
@@ -112,7 +112,7 @@ namespace BookManagementAPI.Controllers
                 // Delete the book from the collection
                 await _bookCollection.DeleteOneAsync(b => b.Id == id);
 
-                return NoContent(); // Return 204 No Content response on success
+                return NoContent();
             }
             catch (Exception ex)
             {

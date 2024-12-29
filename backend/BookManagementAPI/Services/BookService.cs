@@ -10,8 +10,8 @@ namespace BookManagementAPI.Services
 
         public BookService(IMongoClient mongoClient)
         {
-            var database = mongoClient.GetDatabase("bookstoreDB"); // Replace with your MongoDB database name
-            _bookCollection = database.GetCollection<Book>("books"); // Replace with your MongoDB collection name
+            var database = mongoClient.GetDatabase("bookstoreDB"); 
+            _bookCollection = database.GetCollection<Book>("books"); 
         }
 
         public async Task<List<Book>> GetBooksAsync()

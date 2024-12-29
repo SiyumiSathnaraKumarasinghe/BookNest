@@ -9,9 +9,9 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAngularApp", policy =>
     {
-        policy.WithOrigins("http://localhost:4200") // Allow Angular frontend
-              .AllowAnyHeader() // Allow all headers
-              .AllowAnyMethod(); // Allow all HTTP methods
+        policy.WithOrigins("http://localhost:4200") 
+              .AllowAnyHeader() 
+              .AllowAnyMethod(); 
     });
 });
 
@@ -22,13 +22,13 @@ builder.Services.AddSingleton<IMongoClient>(serviceProvider =>
     return new MongoClient(connectionString);
 });
 
-// Register MongoDB service (if you have a service to handle MongoDB operations)
-builder.Services.AddScoped<BooksController>(); // This registers your BooksController
+// Register MongoDB service
+builder.Services.AddScoped<BooksController>(); 
 
 // Register controllers
 builder.Services.AddControllers();
 
-// Add Swagger for API documentation (optional)
+// Add Swagger for API documentation
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
