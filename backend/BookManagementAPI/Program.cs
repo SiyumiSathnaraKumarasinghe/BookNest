@@ -4,10 +4,10 @@ using BookManagementAPI.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// CORS policy setup
+// CORS policy Enabling
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowAngularApp", policy =>
+    options.AddPolicy("AllowAngularApp", policy =>    // Allows requests from Angular frontend
     {
         policy.WithOrigins("http://localhost:4200") 
               .AllowAnyHeader() 
