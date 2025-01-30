@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace BookManagementAPI.Controllers
+namespace BookManagementAPI.Controllers   //Defines the API Controller for Books
 {
     [ApiController]
     [Route("api/[controller]")]
     public class BooksController : ControllerBase
     {
-        private readonly IMongoCollection<Book> _bookCollection;
+        private readonly IMongoCollection<Book> _bookCollection; //Connecting to the Database MongoDB
 
         public BooksController(IMongoClient mongoClient)
         {

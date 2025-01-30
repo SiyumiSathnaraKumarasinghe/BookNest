@@ -5,6 +5,8 @@ namespace BookManagementAPI.Models
 {
     public class Book
     {
+        //Defining the Book Properties
+        
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
         public string? Id { get; set; }
